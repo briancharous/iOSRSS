@@ -31,6 +31,16 @@
     return self;
 }
 
+- (id)initWithFeedUrl:(NSURL *)url andObject:(FeedObject *)obj
+{
+    self = [self initWithFeedUrl:url];
+    if (self) {
+        self.obj = obj;
+    }
+    
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -59,7 +69,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 0;
+    return [self.obj.items count];
 }
 
 /*

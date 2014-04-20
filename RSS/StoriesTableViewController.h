@@ -8,11 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "MWFeedParser.h"
+#import "FeedObject.h"
+
 
 @interface StoriesTableViewController : UITableViewController
 
 - (id)initWithFeedUrl:(NSURL *)url;
+- (id)initWithFeedUrl:(NSURL *)url andObject:(FeedObject *)obj;
 
 @property NSURL *feedUrl;
+@property FeedObject *obj;
 
 @end

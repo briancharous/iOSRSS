@@ -61,6 +61,7 @@
     NSString *title = [info title];
     FeedObject *obj = [[FeedObject alloc] init];
     [obj setUrl:[parser url]];
+    obj.items = [[NSMutableArray alloc] init];
     if (title) {
         [obj setTitle:title];
     } else {
@@ -74,8 +75,10 @@
 {
     for (int i = 0; i < [self.feedList count]; i++) {
         FeedObject *obj = [self.feedList objectAtIndex:i];
-        if ([obj url] == [parser url]) {
+        if ([[obj url] isEqual:[parser url]]) {
             [obj.items addObject:item];
+            NSLog(@"Added item");
+            break;
         }
     }
 }
@@ -160,7 +163,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSURL *feedUrl = [[self.feedList objectAtIndex:[indexPath row]] url];
-    StoriesTableViewController *storiesVC = [[StoriesTableViewController alloc] initWithFeedUrl:feedUrl];
+    
+    FeedObject *obj;
+    for (int i = 0; i < [self.feedList count]; i++) {
+        obj = [self.feedList objectAtIndex:i];
+        if ([[obj url] isEqual:feedUrl]) {
+            break;
+        }
+    }
+    
+    StoriesTableViewController *storiesVC = [[StoriesTableViewController alloc] initWithFeedUrl:feedUrl andObject:obj];
     [self.navigationController pushViewController:storiesVC animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
