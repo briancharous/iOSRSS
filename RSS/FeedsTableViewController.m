@@ -7,7 +7,6 @@
 //
 
 #import "FeedsTableViewController.h"
-#import "FeedParser.h"
 
 @interface FeedsTableViewController ()
 
@@ -16,6 +15,7 @@
 @implementation FeedsTableViewController
 
 - (IBAction)addNewFeed:(id)sender {
+    // show alert view with a textboxfor text entry
     UIAlertView *newFeedAlert = [[UIAlertView alloc] initWithTitle:@"Add new feed" message:@"" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Add", nil];
     [newFeedAlert setAlertViewStyle:UIAlertViewStylePlainTextInput];
     [newFeedAlert show];
@@ -37,7 +37,10 @@
     NSString *urlString = [textField text];
     NSURL *url = [NSURL URLWithString:urlString];
     if (url && url.scheme && url.host) {
-        [self addFeedToTable:url];
+        // url is good, start paring the feed
+        MWFeedParser *parser = [[MWFeedParser alloc] initWithFeedURL:url];
+        [parser setDelegate:self];
+        [parser parse];
     }
     else {
         // URL was malformed
@@ -47,11 +50,21 @@
     
 }
 
-- (void)addFeedToTable:(NSURL *)feedURL {
-    FeedParser *fp = [[FeedParser alloc] init];
-    [fp titleForURL:feedURL];
-    [self.feedList addObject:feedURL];
+- (void)addFeedToTable:(FeedObject *)feedObject {
+    // add a feed to the table
+    [self.feedList addObject:feedObject];
     [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:[self.feedList count] - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
+}
+
+- (void)feedParser:(MWFeedParser *)parser didParseFeedInfo:(MWFeedInfo *)info {
+    // Provides info about the feed
+    NSString *title = [info title];
+    FeedObject *obj = [[FeedObject alloc] init];
+    [obj setUrl:[parser url]];
+    if (title) {
+        [obj setTitle:title];
+    }
+    [self addFeedToTable:obj];
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -102,8 +115,8 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     }
     
-    // converts NSURL to NSString
-    NSString *urlString = [[self.feedList objectAtIndex:[indexPath row]] absoluteString];
+    // get title
+    NSString *urlString = [[self.feedList objectAtIndex:[indexPath row]] title];
     [cell.textLabel setText:urlString];
     
     return cell;

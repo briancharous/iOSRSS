@@ -7,14 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MWFeedParser.h"
+#import "FeedObject.h"
 
-@interface FeedsTableViewController : UITableViewController <UIAlertViewDelegate> {
+@interface FeedsTableViewController : UITableViewController <UIAlertViewDelegate, MWFeedParserDelegate> {
+    
     IBOutlet UIBarButtonItem *editButton;
 }
 
 - (IBAction)addNewFeed:(id)sender;
 - (IBAction)editTable:(id)sender;
-- (void)addFeedToTable:(NSURL *)feedURL;
+- (void)addFeedToTable:(FeedObject *)feedObject;
 
 @property NSMutableArray *feedList;
 

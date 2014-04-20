@@ -11,7 +11,6 @@
 		05D153ED1904340D004E21FF /* MWFeedInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 05D153DE1904340D004E21FF /* MWFeedInfo.m */; };
 		05D153EE1904340D004E21FF /* MWFeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 05D153E01904340D004E21FF /* MWFeedItem.m */; };
 		05D153EF1904340D004E21FF /* MWFeedParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 05D153E31904340D004E21FF /* MWFeedParser.m */; };
-		05D153F01904340D004E21FF /* MWFeedParserAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 05D153E51904340D004E21FF /* MWFeedParserAppDelegate.m */; };
 		05D153F11904340D004E21FF /* NSDate+InternetDateTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 05D153E71904340D004E21FF /* NSDate+InternetDateTime.m */; };
 		05D153F21904340D004E21FF /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 05D153E91904340D004E21FF /* NSString+HTML.m */; };
 		05D153F31904340D004E21FF /* NSString+XMLEntities.m in Sources */ = {isa = PBXBuildFile; fileRef = 05D153EB1904340D004E21FF /* NSString+XMLEntities.m */; };
@@ -30,7 +29,6 @@
 		9F902A171903788D002CEB2E /* RSSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F902A161903788D002CEB2E /* RSSTests.m */; };
 		9F902A221903796C002CEB2E /* FeedsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F902A211903796C002CEB2E /* FeedsTableViewController.m */; };
 		9F902A2519037E78002CEB2E /* FeedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F902A2419037E78002CEB2E /* FeedObject.m */; };
-		9F902A2819037F0E002CEB2E /* FeedParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F902A2719037F0E002CEB2E /* FeedParser.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,8 +51,6 @@
 		05D153E11904340D004E21FF /* MWFeedParser_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWFeedParser_Private.h; sourceTree = "<group>"; };
 		05D153E21904340D004E21FF /* MWFeedParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWFeedParser.h; sourceTree = "<group>"; };
 		05D153E31904340D004E21FF /* MWFeedParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWFeedParser.m; sourceTree = "<group>"; };
-		05D153E41904340D004E21FF /* MWFeedParserAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWFeedParserAppDelegate.h; sourceTree = "<group>"; };
-		05D153E51904340D004E21FF /* MWFeedParserAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWFeedParserAppDelegate.m; sourceTree = "<group>"; };
 		05D153E61904340D004E21FF /* NSDate+InternetDateTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+InternetDateTime.h"; sourceTree = "<group>"; };
 		05D153E71904340D004E21FF /* NSDate+InternetDateTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+InternetDateTime.m"; sourceTree = "<group>"; };
 		05D153E81904340D004E21FF /* NSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HTML.h"; sourceTree = "<group>"; };
@@ -82,8 +78,6 @@
 		9F902A211903796C002CEB2E /* FeedsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedsTableViewController.m; sourceTree = "<group>"; };
 		9F902A2319037E78002CEB2E /* FeedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedObject.h; sourceTree = "<group>"; };
 		9F902A2419037E78002CEB2E /* FeedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedObject.m; sourceTree = "<group>"; };
-		9F902A2619037F0E002CEB2E /* FeedParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedParser.h; sourceTree = "<group>"; };
-		9F902A2719037F0E002CEB2E /* FeedParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedParser.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,8 +116,6 @@
 				05D153E11904340D004E21FF /* MWFeedParser_Private.h */,
 				05D153E21904340D004E21FF /* MWFeedParser.h */,
 				05D153E31904340D004E21FF /* MWFeedParser.m */,
-				05D153E41904340D004E21FF /* MWFeedParserAppDelegate.h */,
-				05D153E51904340D004E21FF /* MWFeedParserAppDelegate.m */,
 				05D153E61904340D004E21FF /* NSDate+InternetDateTime.h */,
 				05D153E71904340D004E21FF /* NSDate+InternetDateTime.m */,
 				05D153E81904340D004E21FF /* NSString+HTML.h */,
@@ -175,8 +167,6 @@
 				9F902A211903796C002CEB2E /* FeedsTableViewController.m */,
 				9F902A2319037E78002CEB2E /* FeedObject.h */,
 				9F902A2419037E78002CEB2E /* FeedObject.m */,
-				9F902A2619037F0E002CEB2E /* FeedParser.h */,
-				9F902A2719037F0E002CEB2E /* FeedParser.m */,
 				9F902A031903788D002CEB2E /* Images.xcassets */,
 				9F9029F21903788D002CEB2E /* Supporting Files */,
 			);
@@ -312,12 +302,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F902A2819037F0E002CEB2E /* FeedParser.m in Sources */,
 				9F9029FC1903788D002CEB2E /* AppDelegate.m in Sources */,
 				05D153EF1904340D004E21FF /* MWFeedParser.m in Sources */,
 				9F9029F81903788D002CEB2E /* main.m in Sources */,
 				9F902A2519037E78002CEB2E /* FeedObject.m in Sources */,
-				05D153F01904340D004E21FF /* MWFeedParserAppDelegate.m in Sources */,
 				9F902A221903796C002CEB2E /* FeedsTableViewController.m in Sources */,
 				05D153F11904340D004E21FF /* NSDate+InternetDateTime.m in Sources */,
 				05D153ED1904340D004E21FF /* MWFeedInfo.m in Sources */,
