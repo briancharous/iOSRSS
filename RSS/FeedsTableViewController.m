@@ -145,6 +145,13 @@
     }   
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSURL *feedUrl = [[self.feedList objectAtIndex:[indexPath row]] url];
+    StoriesTableViewController *storiesVC = [[StoriesTableViewController alloc] initWithFeedUrl:feedUrl];
+    [self.navigationController pushViewController:storiesVC animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
 
 /*
 // Override to support rearranging the table view.

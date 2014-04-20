@@ -14,6 +14,7 @@
 		05D153F11904340D004E21FF /* NSDate+InternetDateTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 05D153E71904340D004E21FF /* NSDate+InternetDateTime.m */; };
 		05D153F21904340D004E21FF /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 05D153E91904340D004E21FF /* NSString+HTML.m */; };
 		05D153F31904340D004E21FF /* NSString+XMLEntities.m in Sources */ = {isa = PBXBuildFile; fileRef = 05D153EB1904340D004E21FF /* NSString+XMLEntities.m */; };
+		9F715BD519043ABA0095DBC3 /* StoriesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F715BD419043ABA0095DBC3 /* StoriesTableViewController.m */; };
 		9F9029EC1903788D002CEB2E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F9029EB1903788D002CEB2E /* Foundation.framework */; };
 		9F9029EE1903788D002CEB2E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F9029ED1903788D002CEB2E /* CoreGraphics.framework */; };
 		9F9029F01903788D002CEB2E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F9029EF1903788D002CEB2E /* UIKit.framework */; };
@@ -57,6 +58,8 @@
 		05D153E91904340D004E21FF /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HTML.m"; sourceTree = "<group>"; };
 		05D153EA1904340D004E21FF /* NSString+XMLEntities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+XMLEntities.h"; sourceTree = "<group>"; };
 		05D153EB1904340D004E21FF /* NSString+XMLEntities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+XMLEntities.m"; sourceTree = "<group>"; };
+		9F715BD319043ABA0095DBC3 /* StoriesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoriesTableViewController.h; sourceTree = "<group>"; };
+		9F715BD419043ABA0095DBC3 /* StoriesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoriesTableViewController.m; sourceTree = "<group>"; };
 		9F9029E81903788D002CEB2E /* RSS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RSS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F9029EB1903788D002CEB2E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9F9029ED1903788D002CEB2E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -165,6 +168,8 @@
 				9F9029FD1903788D002CEB2E /* Main.storyboard */,
 				9F902A201903796C002CEB2E /* FeedsTableViewController.h */,
 				9F902A211903796C002CEB2E /* FeedsTableViewController.m */,
+				9F715BD319043ABA0095DBC3 /* StoriesTableViewController.h */,
+				9F715BD419043ABA0095DBC3 /* StoriesTableViewController.m */,
 				9F902A2319037E78002CEB2E /* FeedObject.h */,
 				9F902A2419037E78002CEB2E /* FeedObject.m */,
 				9F902A031903788D002CEB2E /* Images.xcassets */,
@@ -313,6 +318,7 @@
 				05D153F21904340D004E21FF /* NSString+HTML.m in Sources */,
 				05D153EC1904340D004E21FF /* GTMNSString+HTML.m in Sources */,
 				05D153F31904340D004E21FF /* NSString+XMLEntities.m in Sources */,
+				9F715BD519043ABA0095DBC3 /* StoriesTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

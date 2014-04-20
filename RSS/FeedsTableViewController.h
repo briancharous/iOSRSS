@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MWFeedParser.h"
 #import "FeedObject.h"
+#import "StoriesTableViewController.h"
 
 @interface FeedsTableViewController : UITableViewController <UIAlertViewDelegate, MWFeedParserDelegate> {
     
