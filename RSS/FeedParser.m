@@ -18,7 +18,7 @@
 }
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
-    curElement = elementName;
+//    curElement = elementName;
 }
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {

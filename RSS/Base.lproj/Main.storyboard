@@ -19,12 +19,20 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Root View Controller" id="8KD-e5-axZ">
+                        <barButtonItem key="leftBarButtonItem" title="Edit" id="1rG-YX-aFH">
+                            <connections>
+                                <action selector="editTable:" destination="TGx-GY-MST" id="esq-L5-PHN"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Zvb-r9-L9I">
                             <connections>
                                 <action selector="addNewFeed:" destination="TGx-GY-MST" id="poR-xz-xmY"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="editButton" destination="1rG-YX-aFH" id="GaH-tA-gBM"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bek-hf-rr0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
