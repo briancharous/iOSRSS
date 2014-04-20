@@ -7,6 +7,7 @@
 //
 
 #import "StoriesTableViewController.h"
+#import "WebViewController.h"
 
 @interface StoriesTableViewController ()
 
@@ -86,6 +87,14 @@
     [cell.textLabel setText:item_title];
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    WebViewController *webVC = [[WebViewController alloc] initWithUrl:[NSURL URLWithString:[[self.obj.items objectAtIndex:[indexPath row]] link]]];
+    [self.navigationController pushViewController:webVC animated:YES];
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 
