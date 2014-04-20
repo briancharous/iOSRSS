@@ -21,6 +21,9 @@
 		9F902A0D1903788D002CEB2E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F9029EF1903788D002CEB2E /* UIKit.framework */; };
 		9F902A151903788D002CEB2E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9F902A131903788D002CEB2E /* InfoPlist.strings */; };
 		9F902A171903788D002CEB2E /* RSSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F902A161903788D002CEB2E /* RSSTests.m */; };
+		9F902A221903796C002CEB2E /* FeedsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F902A211903796C002CEB2E /* FeedsTableViewController.m */; };
+		9F902A2519037E78002CEB2E /* FeedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F902A2419037E78002CEB2E /* FeedObject.m */; };
+		9F902A2819037F0E002CEB2E /* FeedParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F902A2719037F0E002CEB2E /* FeedParser.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +56,12 @@
 		9F902A121903788D002CEB2E /* RSSTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RSSTests-Info.plist"; sourceTree = "<group>"; };
 		9F902A141903788D002CEB2E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9F902A161903788D002CEB2E /* RSSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RSSTests.m; sourceTree = "<group>"; };
+		9F902A201903796C002CEB2E /* FeedsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedsTableViewController.h; sourceTree = "<group>"; };
+		9F902A211903796C002CEB2E /* FeedsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedsTableViewController.m; sourceTree = "<group>"; };
+		9F902A2319037E78002CEB2E /* FeedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedObject.h; sourceTree = "<group>"; };
+		9F902A2419037E78002CEB2E /* FeedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedObject.m; sourceTree = "<group>"; };
+		9F902A2619037F0E002CEB2E /* FeedParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedParser.h; sourceTree = "<group>"; };
+		9F902A2719037F0E002CEB2E /* FeedParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedParser.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +124,12 @@
 				9F9029FA1903788D002CEB2E /* AppDelegate.h */,
 				9F9029FB1903788D002CEB2E /* AppDelegate.m */,
 				9F9029FD1903788D002CEB2E /* Main.storyboard */,
+				9F902A201903796C002CEB2E /* FeedsTableViewController.h */,
+				9F902A211903796C002CEB2E /* FeedsTableViewController.m */,
+				9F902A2319037E78002CEB2E /* FeedObject.h */,
+				9F902A2419037E78002CEB2E /* FeedObject.m */,
+				9F902A2619037F0E002CEB2E /* FeedParser.h */,
+				9F902A2719037F0E002CEB2E /* FeedParser.m */,
 				9F902A001903788D002CEB2E /* ViewController.h */,
 				9F902A011903788D002CEB2E /* ViewController.m */,
 				9F902A031903788D002CEB2E /* Images.xcassets */,
@@ -199,6 +214,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Brian Charous";
 				TargetAttributes = {
+					9F9029E71903788D002CEB2E = {
+						DevelopmentTeam = P67F2FBXLF;
+					};
 					9F902A081903788D002CEB2E = {
 						TestTargetID = 9F9029E71903788D002CEB2E;
 					};
@@ -249,9 +267,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F902A2819037F0E002CEB2E /* FeedParser.m in Sources */,
 				9F902A021903788D002CEB2E /* ViewController.m in Sources */,
 				9F9029FC1903788D002CEB2E /* AppDelegate.m in Sources */,
 				9F9029F81903788D002CEB2E /* main.m in Sources */,
+				9F902A2519037E78002CEB2E /* FeedObject.m in Sources */,
+				9F902A221903796C002CEB2E /* FeedsTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,6 +397,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RSS/RSS-Prefix.pch";
 				INFOPLIST_FILE = "RSS/RSS-Info.plist";
@@ -389,6 +411,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RSS/RSS-Prefix.pch";
 				INFOPLIST_FILE = "RSS/RSS-Info.plist";
