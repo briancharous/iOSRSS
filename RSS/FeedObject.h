@@ -12,6 +12,7 @@
 
 @property NSURL *url;
 @property NSString *title;
+@property NSMutableArray *items;
 
 - (id)initWithURL:(NSURL *)url andTitle:(NSString *)title;
 

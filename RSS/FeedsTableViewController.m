@@ -63,8 +63,21 @@
     [obj setUrl:[parser url]];
     if (title) {
         [obj setTitle:title];
+    } else {
+        NSString *url = [[parser url] absoluteString];
+        [obj setTitle:url];
     }
     [self addFeedToTable:obj];
+}
+
+- (void) feedParser:(MWFeedParser *)parser didParseFeedItem:(MWFeedItem *)item
+{
+    for (int i = 0; i < [self.feedList count]; i++) {
+        FeedObject *obj = [self.feedList objectAtIndex:i];
+        if ([obj url] == [parser url]) {
+            [obj.items addObject:item];
+        }
+    }
 }
 
 - (id)initWithStyle:(UITableViewStyle)style

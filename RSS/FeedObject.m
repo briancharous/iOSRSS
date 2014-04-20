@@ -15,6 +15,7 @@
     if (self) {
         [self setUrl:url];
         [self setTitle:title];
+        self.items = [[NSMutableArray alloc] init];
     }
     return self;
 }
