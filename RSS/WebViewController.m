@@ -14,7 +14,7 @@
 
 @implementation WebViewController
 
-@synthesize webView = _webView;
+//@synthesize webView _webView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -30,19 +30,81 @@
     self = [super initWithNibName:nil bundle:nil];
     if(self) {
         self.url = url;
-        self.webView = [[UIWebView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     }
     return self;
 }
 
+
+// most of this from: http://ranga-iphone-developer.blogspot.com/2012/11/how-to-create-uiwebview-programmatically.html
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+    self.webView = [[UIWebView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.webView.backgroundColor = [UIColor whiteColor];
+    self.webView.scalesPageToFit = YES;
+    self.webView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
     self.webView.delegate = self;
+    [self.view addSubview:self.webView];
     
-    NSURLRequest *requestURL = [NSURLRequest requestWithURL:self.url];
-    [self.webView loadRequest:requestURL];
+    // make the request
+    [self.webView loadRequest:[NSURLRequest requestWithURL:self.url]];
+}
+
+#pragma mark -
+#pragma mark UIViewController delegate methods
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    self.webView.delegate = self; // setup the delegate as the web view is shown
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self.webView stopLoading]; // in case the web view is still loading its content
+    self.webView.delegate = nil; // disconnect the delegate as the webview is hidden
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return YES;
+}
+
+// this helps dismiss the keyboard when the "Done" button is clicked
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[textField text]]]];
+    
+    return YES;
+}
+
+#pragma mark -
+#pragma mark UIWebViewDelegate
+
+- (void)webViewDidStartLoad:(UIWebView *)webView
+{
+    // starting the load, show the activity indicator in the status bar
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    // finished loading, hide the activity indicator in the status bar
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    // load error, hide the activity indicator in the status bar
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    
+    // report the error inside the webview
+    NSString* errorString = [NSString stringWithFormat:
+                             @"<html><center><div style=\"display:table\"><font size=+5 color='black'>Some error occurred:<br>%@</font></div></center></html>",
+                             error.localizedDescription];
+    [self.webView loadHTMLString:errorString baseURL:nil];
 }
 
 
