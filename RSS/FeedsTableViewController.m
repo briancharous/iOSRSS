@@ -223,15 +223,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSURL *feedUrl = [[self.feedList objectAtIndex:[indexPath row]] url];
     
-    FeedObject *obj;
-    for (int i = 0; i < [self.feedList count]; i++) {
-        obj = [self.feedList objectAtIndex:i];
-        if ([[obj url] isEqual:feedUrl]) {
-            break;
-        }
-    }
+    FeedObject *obj = [self.feedList objectAtIndex:[indexPath row]];
     
     StoriesTableViewController *storiesVC = [[StoriesTableViewController alloc] initWithFeedUrl:feedUrl andObject:obj];
+    [storiesVC.navigationItem setTitle:[[self.feedList objectAtIndex:[indexPath row]] title]];
     [self.navigationController pushViewController:storiesVC animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
