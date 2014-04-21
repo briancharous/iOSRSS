@@ -14,12 +14,14 @@
 @interface FeedsTableViewController : UITableViewController <UIAlertViewDelegate, MWFeedParserDelegate> {
     
     IBOutlet UIBarButtonItem *editButton;
+    int refreshingCount;
 }
 
 - (IBAction)addNewFeed:(id)sender;
 - (IBAction)editTable:(id)sender;
 - (void)addFeedToTable:(FeedObject *)feedObject;
 - (void)saveState;
+- (void)refreshFeeds;
 
 @property NSMutableArray *feedList;
 

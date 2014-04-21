@@ -59,6 +59,8 @@
 }
 
 - (void)feedParser:(MWFeedParser *)parser didParseFeedInfo:(MWFeedInfo *)info {
+    
+    if (refreshingCount == 0) {
     // Provides info about the feed
     NSString *title = [info title];
     FeedObject *obj = [[FeedObject alloc] init];
@@ -71,6 +73,7 @@
         [obj setTitle:url];
     }
     [self addFeedToTable:obj];
+    }
 }
 
 - (void) feedParser:(MWFeedParser *)parser didParseFeedItem:(MWFeedItem *)item
@@ -78,7 +81,9 @@
     for (int i = 0; i < [self.feedList count]; i++) {
         FeedObject *obj = [self.feedList objectAtIndex:i];
         if ([[obj url] isEqual:[parser url]]) {
-            [obj.items addObject:item];
+            if (![obj.items containsObject:item]) {
+                [obj.items addObject:item];
+            }
 //            NSLog(@"Added item");
             break;
         }
@@ -86,11 +91,32 @@
     [self saveState];
 }
 
+- (void)feedParserDidFinish:(MWFeedParser *)parser {
+    refreshingCount--;
+    
+    // if no more feeds are refreshing, hide the refresh spinner
+    if (refreshingCount == 0) {
+        [self.refreshControl endRefreshing];
+    }
+}
+
 - (void)saveState {
     // save data to file
     NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString *filename = [docsPath stringByAppendingPathComponent:@"archive.dat"];
     [NSKeyedArchiver archiveRootObject:self.feedList toFile:filename];
+}
+
+- (void)refreshFeeds {
+    // keep track of how many feeds we are refreshing so we know when its done
+    refreshingCount = 0;
+    for (int i=0; i < [self.feedList count]; i++) {
+        refreshingCount++;
+        FeedObject *f = [self.feedList objectAtIndex:i];
+        MWFeedParser *p = [[MWFeedParser alloc] initWithFeedURL:[f url]];
+        [p setDelegate:self];
+        [p parse];
+    }
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -105,6 +131,9 @@
 {
     [super viewDidLoad];
     
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [self setRefreshControl:refreshControl];
+    [refreshControl addTarget:self action:@selector(refreshFeeds) forControlEvents:UIControlEventValueChanged];
     // read data back or initialize new array
     
     NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
