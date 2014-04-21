@@ -55,9 +55,7 @@
     [self.feedList addObject:feedObject];
     [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:[self.feedList count] - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
     
-    NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSString *filename = [docsPath stringByAppendingPathComponent:@"archive.dat"];
-    [NSKeyedArchiver archiveRootObject:self.feedList toFile:filename];
+    [self saveState];
 }
 
 - (void)feedParser:(MWFeedParser *)parser didParseFeedInfo:(MWFeedInfo *)info {
@@ -85,6 +83,14 @@
             break;
         }
     }
+    [self saveState];
+}
+
+- (void)saveState {
+    // save data to file
+    NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *filename = [docsPath stringByAppendingPathComponent:@"archive.dat"];
+    [NSKeyedArchiver archiveRootObject:self.feedList toFile:filename];
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -98,6 +104,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    // read data back or initialize new array
     
     NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString *filename = [docsPath stringByAppendingPathComponent:@"archive.dat"];

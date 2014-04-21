@@ -20,6 +20,8 @@
     return self;
 }
 
+// conform to NSCoding
+
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeObject:self.url forKey:@"url"];
     [encoder encodeObject:self.title forKey:@"title"];

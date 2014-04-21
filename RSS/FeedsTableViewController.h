@@ -19,6 +19,7 @@
 - (IBAction)addNewFeed:(id)sender;
 - (IBAction)editTable:(id)sender;
 - (void)addFeedToTable:(FeedObject *)feedObject;
+- (void)saveState;
 
 @property NSMutableArray *feedList;
 
