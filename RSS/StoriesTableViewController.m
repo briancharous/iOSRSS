@@ -73,18 +73,32 @@
     return [self.obj.items count];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 100;
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
     }
     
     // get title
     NSString *item_title = [[self.obj.items objectAtIndex:[indexPath row]] title];
     [cell.textLabel setText:item_title];
+    [cell.textLabel setAdjustsFontSizeToFitWidth:YES];
+    [cell.textLabel setNumberOfLines:3];
+    
+    // format date
+    NSDate *item_date = [[self.obj.items objectAtIndex:[indexPath row]] date];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    NSString *dateString = [formatter stringFromDate:item_date];
+    [cell.detailTextLabel setText:dateString];
     
     return cell;
 }
@@ -96,6 +110,7 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
 
 
 /*

@@ -18,6 +18,8 @@
     // show alert view with a textboxfor text entry
     UIAlertView *newFeedAlert = [[UIAlertView alloc] initWithTitle:@"Add new feed" message:@"" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Add", nil];
     [newFeedAlert setAlertViewStyle:UIAlertViewStylePlainTextInput];
+    [[newFeedAlert textFieldAtIndex:0] setKeyboardType:UIKeyboardTypeURL];
+    [[newFeedAlert textFieldAtIndex:0] setKeyboardAppearance:UIKeyboardAppearanceDark];
     [newFeedAlert show];
 }
 
@@ -33,21 +35,23 @@
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    UITextField *textField = [alertView textFieldAtIndex:0]; // get main text field
-    NSString *urlString = [textField text];
-    NSURL *url = [NSURL URLWithString:urlString];
-    if (url && url.scheme && url.host) {
-        // url is good, start paring the feed
-        MWFeedParser *parser = [[MWFeedParser alloc] initWithFeedURL:url];
-        [parser setDelegate:self];
-        [parser parse];
+    if (buttonIndex == 1) {
+        // clicked ok
+        UITextField *textField = [alertView textFieldAtIndex:0]; // get main text field
+        NSString *urlString = [textField text];
+        NSURL *url = [NSURL URLWithString:urlString];
+        if (url && url.scheme && url.host) {
+            // url is good, start paring the feed
+            MWFeedParser *parser = [[MWFeedParser alloc] initWithFeedURL:url];
+            [parser setDelegate:self];
+            [parser parse];
+        }
+        else {
+            // URL was malformed
+            UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Invalid URL" message:nil delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+            [errorAlert show];
+        }
     }
-    else {
-        // URL was malformed
-        UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Invalid URL" message:nil delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
-        [errorAlert show];
-    }
-    
 }
 
 - (void)addFeedToTable:(FeedObject *)feedObject {
@@ -107,6 +111,10 @@
     [NSKeyedArchiver archiveRootObject:self.feedList toFile:filename];
 }
 
+- (void)startRefreshFeedsInNewThread {
+    [NSThread detachNewThreadSelector:@selector(refreshFeeds) toTarget:self withObject:nil];
+}
+
 - (void)refreshFeeds {
     // keep track of how many feeds we are refreshing so we know when its done
     refreshingCount = 0;
@@ -133,7 +141,7 @@
     
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [self setRefreshControl:refreshControl];
-    [refreshControl addTarget:self action:@selector(refreshFeeds) forControlEvents:UIControlEventValueChanged];
+    [refreshControl addTarget:self action:@selector(startRefreshFeedsInNewThread) forControlEvents:UIControlEventValueChanged];
     // read data back or initialize new array
     
     NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];

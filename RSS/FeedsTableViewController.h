@@ -22,6 +22,7 @@
 - (void)addFeedToTable:(FeedObject *)feedObject;
 - (void)saveState;
 - (void)refreshFeeds;
+- (void)startRefreshFeedsInNewThread;
 
 @property NSMutableArray *feedList;
 
