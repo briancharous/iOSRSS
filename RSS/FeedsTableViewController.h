@@ -23,6 +23,7 @@
 - (void)saveState;
 - (void)refreshFeeds;
 - (void)startRefreshFeedsInNewThread;
+- (void)addNewFeedInThread:(NSURL *)url;
 
 @property NSMutableArray *feedList;
 

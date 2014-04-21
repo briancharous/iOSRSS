@@ -42,9 +42,8 @@
         NSURL *url = [NSURL URLWithString:urlString];
         if (url && url.scheme && url.host) {
             // url is good, start paring the feed
-            MWFeedParser *parser = [[MWFeedParser alloc] initWithFeedURL:url];
-            [parser setDelegate:self];
-            [parser parse];
+            [NSThread detachNewThreadSelector:@selector(addNewFeedInThread:) toTarget:self withObject:url];
+            [self.refreshControl beginRefreshing];
         }
         else {
             // URL was malformed
@@ -54,29 +53,35 @@
     }
 }
 
+- (void)addNewFeedInThread:(NSURL *)url {
+    MWFeedParser *parser = [[MWFeedParser alloc] initWithFeedURL:url];
+    [parser setDelegate:self];
+    [parser parse];
+}
+
 - (void)addFeedToTable:(FeedObject *)feedObject {
     // add a feed to the table
     [self.feedList addObject:feedObject];
     [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:[self.feedList count] - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
     
-    [self saveState];
+//    [NSThread detachNewThreadSelector:@selector(saveState) toTarget:self withObject:nil];
 }
 
 - (void)feedParser:(MWFeedParser *)parser didParseFeedInfo:(MWFeedInfo *)info {
     
     if (refreshingCount == 0) {
     // Provides info about the feed
-    NSString *title = [info title];
-    FeedObject *obj = [[FeedObject alloc] init];
-    [obj setUrl:[parser url]];
-    obj.items = [[NSMutableArray alloc] init];
-    if (title) {
-        [obj setTitle:title];
-    } else {
-        NSString *url = [[parser url] absoluteString];
-        [obj setTitle:url];
-    }
-    [self addFeedToTable:obj];
+        NSString *title = [info title];
+        FeedObject *obj = [[FeedObject alloc] init];
+        [obj setUrl:[parser url]];
+        obj.items = [[NSMutableArray alloc] init];
+        if (title) {
+            [obj setTitle:title];
+        } else {
+            NSString *url = [[parser url] absoluteString];
+            [obj setTitle:url];
+        }
+        [self addFeedToTable:obj];
     }
 }
 
@@ -99,9 +104,14 @@
     refreshingCount--;
     
     // if no more feeds are refreshing, hide the refresh spinner
-    if (refreshingCount == 0) {
+    if (refreshingCount <= 0) {
         [self.refreshControl endRefreshing];
     }
+}
+
+- (void)feedParser:(MWFeedParser *)parser didFailWithError:(NSError *)error {
+    UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Something went wrong :(" message:[NSString stringWithFormat:@"Here's a technical error message: %@", error] delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+    [errorAlert show];
 }
 
 - (void)saveState {
@@ -139,11 +149,12 @@
 {
     [super viewDidLoad];
     
+    // set up the refresh control
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [self setRefreshControl:refreshControl];
     [refreshControl addTarget:self action:@selector(startRefreshFeedsInNewThread) forControlEvents:UIControlEventValueChanged];
-    // read data back or initialize new array
     
+    // read data back or initialize new array
     NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString *filename = [docsPath stringByAppendingPathComponent:@"archive.dat"];
     NSMutableArray *savedArray = [NSKeyedUnarchiver unarchiveObjectWithFile:filename];
@@ -155,11 +166,11 @@
     else {
         self.feedList = [[NSMutableArray alloc] init];
     }
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    // don't show empty cells
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveState) name:@"enteringBackground" object:nil];
 }
 
 
@@ -216,7 +227,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
         [self.feedList removeObjectAtIndex:[indexPath row]];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
 }
 
