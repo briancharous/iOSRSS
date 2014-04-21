@@ -89,11 +89,9 @@
     for (int i = 0; i < [self.feedList count]; i++) {
         FeedObject *obj = [self.feedList objectAtIndex:i];
         if ([[obj url] isEqual:[parser url]]) {
-            if (![obj.items containsObject:item]) {
-                [obj.items addObject:item];
-            }
+            [obj.items addObject:item];
 //            NSLog(@"Added item");
-            break;
+//            break; put this back in if we check to see if they added the same thing twice
         }
     }
     [self saveState];
@@ -130,6 +128,7 @@
     for (int i=0; i < [self.feedList count]; i++) {
         refreshingCount++;
         FeedObject *f = [self.feedList objectAtIndex:i];
+        [f.items removeAllObjects];
         MWFeedParser *p = [[MWFeedParser alloc] initWithFeedURL:[f url]];
         [p setDelegate:self];
         [p parse];
