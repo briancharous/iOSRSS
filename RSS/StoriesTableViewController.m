@@ -105,6 +105,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
+    // push the web view onto the stack
     WebViewController *webVC = [[WebViewController alloc] initWithUrl:[NSURL URLWithString:[[self.obj.items objectAtIndex:[indexPath row]] link]]];
     [self.navigationController pushViewController:webVC animated:YES];
     

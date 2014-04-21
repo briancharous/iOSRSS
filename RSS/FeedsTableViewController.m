@@ -54,6 +54,7 @@
 }
 
 - (void)addNewFeedInThread:(NSURL *)url {
+    // dispatch new thread to parse feed xml
     MWFeedParser *parser = [[MWFeedParser alloc] initWithFeedURL:url];
     [parser setDelegate:self];
     [parser parse];
@@ -63,13 +64,11 @@
     // add a feed to the table
     [self.feedList addObject:feedObject];
     [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:[self.feedList count] - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
-    
-//    [NSThread detachNewThreadSelector:@selector(saveState) toTarget:self withObject:nil];
 }
 
 - (void)feedParser:(MWFeedParser *)parser didParseFeedInfo:(MWFeedInfo *)info {
     
-    if (refreshingCount == 0) {
+    if (refreshingCount <= 0) {
     // Provides info about the feed
         NSString *title = [info title];
         FeedObject *obj = [[FeedObject alloc] init];
@@ -232,6 +231,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    // show the corresponding stories
+    
     NSURL *feedUrl = [[self.feedList objectAtIndex:[indexPath row]] url];
     
     FeedObject *obj = [self.feedList objectAtIndex:[indexPath row]];
