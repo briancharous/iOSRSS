@@ -8,10 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WebViewController : UIViewController <UIWebViewDelegate>
+@interface WebViewController : UIViewController <UIWebViewDelegate, UIActionSheetDelegate>
 
 @property (nonatomic) IBOutlet UIWebView *webView;
 @property NSURL *url;
 
 -(id)initWithUrl:(NSURL *)url;
+- (IBAction)action:(id)sender;
+- (void)sharePage;
+
+
 @end

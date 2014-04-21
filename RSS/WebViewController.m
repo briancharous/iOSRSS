@@ -36,19 +36,24 @@
 
 
 // most of this from: http://ranga-iphone-developer.blogspot.com/2012/11/how-to-create-uiwebview-programmatically.html
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.webView = [[UIWebView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.webView.backgroundColor = [UIColor whiteColor];
     self.webView.scalesPageToFit = YES;
-    self.webView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
     self.webView.delegate = self;
-    [self.view addSubview:self.webView];
     
     // make the request
     [self.webView loadRequest:[NSURLRequest requestWithURL:self.url]];
+}
+
+- (IBAction)action:(id)sender {
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Open in Safari", @"Share", nil];
+    [actionSheet showInView:self.view];
+}
+
+- (void)sharePage {
+    UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:@[self.webView.request.URL.absoluteString] applicationActivities:nil];
+    [self presentViewController:activityVC animated:YES completion:nil];
 }
 
 #pragma mark -
@@ -112,6 +117,24 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark -
+#pragma mark Action Sheet Delegate methods
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    switch (buttonIndex) {
+        case 0:
+            // open in safari
+            [[UIApplication sharedApplication] openURL:self.webView.request.URL];
+            break;
+        case 1:
+            // share
+            [self sharePage];
+            break;
+        default:
+            break;
+    }
 }
 
 /*

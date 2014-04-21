@@ -30,6 +30,8 @@
 		9F902A171903788D002CEB2E /* RSSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F902A161903788D002CEB2E /* RSSTests.m */; };
 		9F902A221903796C002CEB2E /* FeedsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F902A211903796C002CEB2E /* FeedsTableViewController.m */; };
 		9F902A2519037E78002CEB2E /* FeedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F902A2419037E78002CEB2E /* FeedObject.m */; };
+		9FCAB97919046BCE00194362 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FCAB97719046BCE00194362 /* WebViewController.m */; };
+		9FCAB97B1904988D00194362 /* WebView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FCAB97A1904988D00194362 /* WebView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +83,9 @@
 		9F902A211903796C002CEB2E /* FeedsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedsTableViewController.m; sourceTree = "<group>"; };
 		9F902A2319037E78002CEB2E /* FeedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedObject.h; sourceTree = "<group>"; };
 		9F902A2419037E78002CEB2E /* FeedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedObject.m; sourceTree = "<group>"; };
+		9FCAB97619046BCE00194362 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
+		9FCAB97719046BCE00194362 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
+		9FCAB97A1904988D00194362 /* WebView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +177,9 @@
 				9F715BD419043ABA0095DBC3 /* StoriesTableViewController.m */,
 				9F902A2319037E78002CEB2E /* FeedObject.h */,
 				9F902A2419037E78002CEB2E /* FeedObject.m */,
+				9FCAB97619046BCE00194362 /* WebViewController.h */,
+				9FCAB97719046BCE00194362 /* WebViewController.m */,
+				9FCAB97A1904988D00194362 /* WebView.xib */,
 				9F902A031903788D002CEB2E /* Images.xcassets */,
 				9F9029F21903788D002CEB2E /* Supporting Files */,
 			);
@@ -287,6 +295,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F902A041903788D002CEB2E /* Images.xcassets in Resources */,
+				9FCAB97B1904988D00194362 /* WebView.xib in Resources */,
 				9F9029F61903788D002CEB2E /* InfoPlist.strings in Resources */,
 				9F9029FF1903788D002CEB2E /* Main.storyboard in Resources */,
 			);
@@ -308,6 +317,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F9029FC1903788D002CEB2E /* AppDelegate.m in Sources */,
+				9FCAB97919046BCE00194362 /* WebViewController.m in Sources */,
 				05D153EF1904340D004E21FF /* MWFeedParser.m in Sources */,
 				9F9029F81903788D002CEB2E /* main.m in Sources */,
 				9F902A2519037E78002CEB2E /* FeedObject.m in Sources */,

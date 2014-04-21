@@ -54,6 +54,10 @@
     // add a feed to the table
     [self.feedList addObject:feedObject];
     [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:[self.feedList count] - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
+    
+    NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *filename = [docsPath stringByAppendingPathComponent:@"archive.dat"];
+    [NSKeyedArchiver archiveRootObject:self.feedList toFile:filename];
 }
 
 - (void)feedParser:(MWFeedParser *)parser didParseFeedInfo:(MWFeedInfo *)info {
@@ -77,7 +81,7 @@
         FeedObject *obj = [self.feedList objectAtIndex:i];
         if ([[obj url] isEqual:[parser url]]) {
             [obj.items addObject:item];
-            NSLog(@"Added item");
+//            NSLog(@"Added item");
             break;
         }
     }
@@ -94,13 +98,25 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.feedList = [[NSMutableArray alloc] init];
+    
+    NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *filename = [docsPath stringByAppendingPathComponent:@"archive.dat"];
+    NSMutableArray *savedArray = [NSKeyedUnarchiver unarchiveObjectWithFile:filename];
+
+    if (savedArray) {
+        [self setFeedList:savedArray];
+        [self.tableView reloadData];
+    }
+    else {
+        self.feedList = [[NSMutableArray alloc] init];
+    }
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -156,9 +172,7 @@
         // Delete the row from the data source
         [self.feedList removeObjectAtIndex:[indexPath row]];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

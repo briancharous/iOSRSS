@@ -20,4 +20,20 @@
     return self;
 }
 
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    [encoder encodeObject:self.url forKey:@"url"];
+    [encoder encodeObject:self.title forKey:@"title"];
+    [encoder encodeObject:self.items forKey:@"items"];
+}
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    self = [super init];
+    if (self) {
+        [self setUrl:[decoder decodeObjectForKey:@"url"]];
+        [self setTitle:[decoder decodeObjectForKey:@"title"]];
+        [self setItems:[decoder decodeObjectForKey:@"items"]];
+    }
+    return self;
+}
+
 @end
